@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #d4d8d0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #d4d8d0;
+        }
+
+        .wrapper {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            /* background: linear-gradient(to bottom right,#353a5f, #9ebaf3); */
+            background:#212121;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        img {
+            display: none;
+            margin-right: 15px;
+            transform: scale(0.9);
+            box-shadow: 0 0 5px #212121;
+            animation: imgTransition 1s;
+        }
+
+        #text {
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .buttons {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            margin-top: 4%;
+        }
+
+        button {
+            position: absolute;
+            width: 150px;
+            height: inherit;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-radius: 20px;
+            border: 2px solid #2a2e4c;
+            outline: none;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+        }
+
+        button:nth-child(1) {
+            margin-left: -200px;
+            background: #2a2e4c;
+            color: #d4d8d0;
+            border: 2px solid rgb(38, 68, 165);
+            background: transparent;
+            text-transform: uppercase;
+            overflow: hidden;
+            box-shadow: 0 0 0 0 transparent;
+            transition: all 0.2s ease-in;
+        }
+
+        button:nth-child(1):hover {
+            background: rgb(38, 68, 165);
+            box-shadow: 0 0 30px 5px rgba(0, 105, 174, 0.815);
+            -webkit-transition: all 0.2s ease-out;
+            -moz-transition: all 0.2s ease-out;
+            transition: all 0.2s ease-out;
+        }
+
+        button:nth-child(1):hover::before {
+            -webkit-animation: sh02 0.5s 0s linear;
+            -moz-animation: sh02 0.5s 0s linear;
+            animation: sh02 0.5s 0s linear;
+        }
+
+        button:nth-child(1)::before {
+            content: '';
+            display: block;
+            width: 0px;
+            height: 86%;
+            position: absolute;
+            top: 7%;
+            left: 0%;
+            opacity: 0;
+            background: #fff;
+            box-shadow: 0 0 50px 30px #fff;
+            -webkit-transform: skewX(-20deg);
+            -moz-transform: skewX(-20deg);
+            -ms-transform: skewX(-20deg);
+            -o-transform: skewX(-20deg);
+            transform: skewX(-20deg);
+        }
+
+        button:active {
+            box-shadow: 0 0 0 0 transparent;
+            -webkit-transition: box-shadow 0.2s ease-in;
+            -moz-transition: box-shadow 0.2s ease-in;
+            transition: box-shadow 0.2s ease-in;
+        }
+
+        button:nth-child(2) {
+            margin-right: -200px;
+            background: #d4d8d0;
+            color: #212121;
+        }
+
+        @keyframes sh02 {
+        from {
+            opacity: 0;
+            left: 0%;
+        }
+
+        50% {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+            left: 100%;
+        }
+        }
+
+        @keyframes imgTransition {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }    
+            100% {
+                opacity: 1;
+                transform: scale(.9);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    
+    <img src="meme.png" alt="meme" id="image">
+    <div class="wrapper">
+        <h2 class="question" id="text">Siapa yang bakal jadi admin RPL?</h2>
+        <div class="buttons">
+            <button class="zhafran" id="zhafranid">zhafran</button>
+            <button class="lainnya">lainnya</button>
+        </div>
+    </div>
+
+    <script>
+        const wrapper = document.querySelector('.wrapper');
+        const lainnyabtn = document.querySelector('.lainnya');
+
+        const wrapperrect = wrapper.getBoundingClientRect();
+        const lainnyabtnrect = lainnyabtn.getBoundingClientRect();
+
+        const zhafbtn = document.getElementById('zhafranid');
+        const text = document.getElementById('text');
+
+        zhafbtn.addEventListener('click', function(){
+            text.style.opacity = 0;
+            setTimeout(function() {
+                text.innerHTML = 'kelas PAA bersama RL <br> hati senang, jadinya nagih <br> bingung milih admin rpl? <br> ya zhafran lah, siapa lagi? <br><br>anjay, hehe<br>#pilihzhafran #coblozhafran'
+                text.style.opacity = 1;
+            }, 500);
+            document.getElementById('image').style.display = "block";
+            document.getElementById('image').style.animationPlayState = "running";
+            document.getElementById('zhafranid').style.display = "none";
+        });
+
+        lainnyabtn.addEventListener('click', () => {
+            const i = Math.floor(Math.random() * (wrapperrect.width - lainnyabtnrect.width)) + 1;
+            const j = Math.floor(Math.random() * (wrapperrect.height - lainnyabtnrect.height)) + 1;
+
+            lainnyabtn.style.left = i + 'px';
+            lainnyabtn.style.top = j + 'px';
+        });
+    </script>
+
+</body>
+</html>
